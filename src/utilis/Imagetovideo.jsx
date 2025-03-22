@@ -24,7 +24,7 @@ const Imagetovideo = ({ title, moreData, list, changeVideo, key }) => {
     useEffect(() => {
         if (list) {
             setProfile({
-                video_img: '',
+                video_img: list?.blog_image[0].details,
                 name: list.user.name,
                 img: list.user.image ? list.user.image_path + '/' + list.user.image : null,
                 time: list.create_date,

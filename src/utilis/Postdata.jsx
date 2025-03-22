@@ -4,7 +4,7 @@ import { IoShareSocial } from 'react-icons/io5';
 import { RiFacebookFill } from 'react-icons/ri';
 
 
-const Postdata = ({ title, moreData, profile, heroData, shareImg }) => {
+const Postdata = ({ title, moreData, profile, heroData }) => {
 
     const [more, setMore] = useState(false)
     const [share, setShare] = useState(false)
@@ -37,8 +37,10 @@ const Postdata = ({ title, moreData, profile, heroData, shareImg }) => {
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
     let imageUrl;
     useEffect(() => {
-        imageUrl = `https://img.youtube.com/vi/${shareImg}/0.jpg`;
-    }, [shareImg])
+        imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
+    }, [profile])
+
+    console.log(profile)
 
     return (
         <>

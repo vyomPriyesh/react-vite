@@ -108,6 +108,7 @@ function App() {
       time: '',
       view: '',
       share: '',
+      video_img:'',
     })
     try {
       const response = await axios.get(`${apiUrl}news_details/1/${list?.id}`);
@@ -119,6 +120,7 @@ function App() {
         setMoreData(response.data.data.description)
         setProfile({
           ...profile,
+          video_img:response.data.data.blog_image[0].details,
           name: response.data.data.user.name,
           img: response.data.data.user.image ? response.data.data.user.image_path + '/' + response.data.data.user.image : null,
           time: response.data.data.create_date,
