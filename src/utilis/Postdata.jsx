@@ -33,7 +33,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     }, [profile?.share, moreData]);
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${title}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
     const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
 
 
@@ -101,7 +101,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                         data-description={moreData}
                                         data-image={imageUrl}
                                         data-url={whatsappUrl}
-                                        // onClick={updateOGTags}
+                                        onClick={updateOGTags}
                                         id="whatsapp-share"
                                         className="text-green-600"><FaWhatsapp /></a>
                                     <a href="#" className="text-yellow-700"><FaInstagram /></a>
