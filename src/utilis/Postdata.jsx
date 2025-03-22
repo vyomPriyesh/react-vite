@@ -15,6 +15,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const port = window.location.port;
 
     const updateOGTags = () => {
+        console.log(title)
         const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
         const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
         const url = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
@@ -44,7 +45,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                 <meta property="og:title" content={title} />
                 {/* <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} /> */}
                 <meta property="og:image" content={`https://img.youtube.com/vi/${profile?.video_img}/0.jpg`} />
-                <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
+                <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${title}`} />
                 <title>{title}</title>
             </HelmetExport>
             {title &&
