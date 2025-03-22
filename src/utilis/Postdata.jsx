@@ -32,7 +32,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     }, [profile?.share, moreData]);
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
     const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
 
 
