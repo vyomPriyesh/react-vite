@@ -27,16 +27,15 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
         // Update the document title
         document.title = title;
     };
-    
-    // Call updateOGTags when the component mounts or when the blog prop changes
-    // useEffect(() => {
-        //     updateOGTags();
-        // }, [profile?.share]);
-        
-        const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
-        const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
-        
+
+    useEffect(() => {
+        updateOGTags();
+    }, [profile?.share]);
+
+    const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
+    const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
+
 
     return (
         <>
@@ -87,7 +86,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                 <div
                                     className="absolute flex rounded-md z-40 flex-row gap-3 text-2xl left-0 -translate-x-[100%] top-7 bg-white border border-gray-300 p-2">
                                     <a
-                                    target='_blank'
+                                        target='_blank'
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
