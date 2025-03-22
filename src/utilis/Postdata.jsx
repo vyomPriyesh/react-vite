@@ -32,7 +32,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     }, [profile?.share, moreData]);
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?text=https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
     const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
 
 
@@ -43,7 +43,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
             <HelmetExport>
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} />
-                <meta property="og:image" content={imageUrl} />
+                <meta property="og:image" content={`https://img.youtube.com/vi/${profile?.video_img}/0.jpg`} />
                 <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
                 <title>{title}</title>
             </HelmetExport>
