@@ -19,7 +19,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
         const url = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
         
         // Update Open Graph meta tags
-        document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+        // document.querySelector('meta[property="og:title"]').setAttribute("content", title);
         document.querySelector('meta[property="og:description"]').setAttribute("content", description);
         document.querySelector('meta[property="og:image"]').setAttribute("content", image);
         document.querySelector('meta[property="og:url"]').setAttribute("content", url);
