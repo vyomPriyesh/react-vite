@@ -26,6 +26,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
         // Update the document title
         document.title = title;
+        console.log(image)
     };
 
     // Call updateOGTags when the component mounts or when the blog prop changes
@@ -35,12 +36,9 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
-    let imageUrl;
-    useEffect(() => {
-        imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
-    }, [profile])
+    const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
 
-    console.log(profile)
+
 
     return (
         <>
