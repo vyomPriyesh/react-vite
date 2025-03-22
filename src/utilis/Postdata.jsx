@@ -14,17 +14,17 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const port = window.location.port;
 
     const updateOGTags = () => {
-        console.log(shareUrl)
         const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
         const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
-        const url = `https://infogujarat.in/?nid=${profile?.share}`;
-
+        const url = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
+        
         // Update Open Graph meta tags
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
         document.querySelector('meta[property="og:description"]').setAttribute("content", description);
         document.querySelector('meta[property="og:image"]').setAttribute("content", image);
         document.querySelector('meta[property="og:url"]').setAttribute("content", url);
-
+        
+        console.log(url)
         // Update the document title
         document.title = title;
     };
