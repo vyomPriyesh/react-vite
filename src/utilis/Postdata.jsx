@@ -89,13 +89,12 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                 <div
                                     className="absolute flex rounded-md z-40 flex-row gap-3 text-2xl left-0 -translate-x-[100%] top-7 bg-white border border-gray-300 p-2">
                                     <a
-                                        target='_blank'
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
                                         data-image={imageUrl}
                                         data-url={whatsappUrl}
-                                        onClick={updateOGTags}
+                                        // onClick={updateOGTags}
                                         id="whatsapp-share"
                                         className="text-green-600"><FaWhatsapp /></a>
                                     <a href="#" className="text-yellow-700"><FaInstagram /></a>
