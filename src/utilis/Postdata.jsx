@@ -14,7 +14,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const port = window.location.port;
 
     const updateOGTags = () => {
-        const description = blog.description.replace(/(<([^>]+)>)/gi, ''); // Strip HTML tags
+        const description = moreData.replace(/(<([^>]+)>)/gi, ''); // Strip HTML tags
         const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
         const url = `https://infogujarat.in/?nid=${profile?.share}`;
 
@@ -26,19 +26,17 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
         // Update the document title
         document.title = title;
-        console.log(image)
     };
-
+    
     // Call updateOGTags when the component mounts or when the blog prop changes
     // useEffect(() => {
-    //     updateOGTags();
-    // }, [profile?.share]);
-
-    const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
-    const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
-
-
+        //     updateOGTags();
+        // }, [profile?.share]);
+        
+        const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
+        const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
+        
 
     return (
         <>
@@ -89,6 +87,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                 <div
                                     className="absolute flex rounded-md z-40 flex-row gap-3 text-2xl left-0 -translate-x-[100%] top-7 bg-white border border-gray-300 p-2">
                                     <a
+                                    target='_blank'
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
