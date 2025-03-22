@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet';
 import { FaEye, FaInstagram, FaStopwatch, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { RiFacebookFill } from 'react-icons/ri';
@@ -13,22 +14,9 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const host = window.location.hostname;      // e.g., '192.168.29.202'
     const port = window.location.port;
 
-    const updateOGTags = () => {
-        const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
-        const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
-        const url = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
-        
-        // Update Open Graph meta tags
-        // document.querySelector('meta[property="og:title"]').setAttribute("content", title);
-        document.querySelector('meta[property="og:description"]').setAttribute("content", description);
-        document.querySelector('meta[property="og:image"]').setAttribute("content", image);
-        document.querySelector('meta[property="og:url"]').setAttribute("content", url);
-        // document.title = title;
-    };
-
-    useEffect(() => {
-        updateOGTags();
-    }, [profile?.share, moreData]);
+    const description = moreData ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
+    const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
+    const url = `https://infogujarat.in/?nid=${profile?.share}`;
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
@@ -39,6 +27,13 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     return (
         <>
+            <Helmet>
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
+                <meta property="og:url" content={url} />
+                <title>{title}</title>
+            </Helmet>
             {title &&
                 <h1 className="gap-2 text-base place-items-start mt-2 px-1 font-semibold">
                     {title}
