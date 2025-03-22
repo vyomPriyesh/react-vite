@@ -23,10 +23,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
         document.querySelector('meta[property="og:description"]').setAttribute("content", description);
         document.querySelector('meta[property="og:image"]').setAttribute("content", image);
         document.querySelector('meta[property="og:url"]').setAttribute("content", url);
-        
-        console.log(url)
-        // Update the document title
-        document.title = title;
+        // document.title = title;
     };
 
     useEffect(() => {
