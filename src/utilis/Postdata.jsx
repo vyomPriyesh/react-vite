@@ -43,7 +43,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
             <HelmetExport>
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} />
-                <meta property="og:image" content={profile?.video_img} />
+                <meta property="og:image" content={imageUrl} />
                 <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
                 <title>{title}</title>
             </HelmetExport>
