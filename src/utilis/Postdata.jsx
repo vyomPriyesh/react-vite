@@ -22,8 +22,8 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
         // Update Open Graph meta tags
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
         document.querySelector('meta[property="og:description"]').setAttribute("content", description);
-        document.querySelector('meta[property="og:image"]').setAttribute("content", image);
-        document.querySelector('meta[property="og:url"]').setAttribute("content", url);
+        document.querySelector('meta[property="og:image"]').setAttribute("content", `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`);
+        document.querySelector('meta[property="og:url"]').setAttribute("content", `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`);
         document.title = title;
     };
 
