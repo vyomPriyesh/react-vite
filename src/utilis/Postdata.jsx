@@ -14,7 +14,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const port = window.location.port;
 
     const updateOGTags = () => {
-        const description = moreData.replace(/(<([^>]+)>)/gi, ''); // Strip HTML tags
+        const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
         const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
         const url = `https://infogujarat.in/?nid=${profile?.share}`;
 
@@ -30,7 +30,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     useEffect(() => {
         updateOGTags();
-    }, [profile?.share]);
+    }, [profile?.share, moreData]);
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
