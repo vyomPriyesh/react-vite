@@ -14,7 +14,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const host = window.location.hostname;      // e.g., '192.168.29.202'
     const port = window.location.port;
 
-    const description = moreData ? moreData?.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
+    const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
     const image = `https://img.youtube.com/vi/${heroData}/0.jpg`;
     const url = `https://infogujarat.in/?nid=${profile?.share}`;
 
