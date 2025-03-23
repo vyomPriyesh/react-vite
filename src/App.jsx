@@ -95,6 +95,10 @@ function App() {
     }
   }, [])
 
+  const protocol = window.location.protocol;  // 'http:' or 'https:'
+  const host = window.location.hostname;      // e.g., '192.168.29.202'
+  const port = window.location.port;
+
   const changeVideo = async (list) => {
     setHerodata(null)
     setShareimg(null)
@@ -127,6 +131,11 @@ function App() {
           view: response.data.data.count,
           share: response.data.data.id,
         })
+        document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+        document.querySelector('meta[property="og:description"]').setAttribute("content", response.data.data.blog_image[0].details);
+        document.querySelector('meta[property="og:image"]').setAttribute("content", `https://img.youtube.com/vi/${response.data.data.blog_image[0].details}/0.jpg`);
+        document.querySelector('meta[property="og:url"]').setAttribute("content", `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${list?.id}`);
+        document.title = title;
       }
     } catch (err) {
       console.log(err)
