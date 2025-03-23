@@ -13,8 +13,10 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
     const host = window.location.hostname;      // e.g., '192.168.29.202'
     const port = window.location.port;
 
+    let description;
+
     const updateOGTags = () => {
-        const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
+         description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
 
         // Update Open Graph meta tags
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
