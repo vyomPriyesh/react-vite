@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import HelmetExport from 'react-helmet';
+import HelmetExport, { Helmet } from 'react-helmet';
 import { FaEye, FaInstagram, FaStopwatch, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { RiFacebookFill } from 'react-icons/ri';
@@ -34,20 +34,20 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
-    const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
+    const imageUrl = `https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg`;
 
 
 
 
     return (
         <>
-            <HelmetExport>
+            <Helmet>
                 <meta property="og:title" content={title} />
-                {/* <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} /> */}
-                <meta property="og:image" content={`https://img.youtube.com/vi/${profile?.video_img}/0.jpg`} />
+                <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} />
+                <meta property="og:image" content={`https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg`} />
                 <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
                 <title>{title}</title>
-            </HelmetExport>
+            </Helmet>
             {title &&
                 <h1 className="gap-2 text-base place-items-start mt-2 px-1 font-semibold">
                     {title}
