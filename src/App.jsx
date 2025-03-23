@@ -112,7 +112,7 @@ function App() {
       time: '',
       view: '',
       share: '',
-      video_img:'',
+      video_img: '',
     })
     try {
       const response = await axios.get(`${apiUrl}news_details/1/${list?.id}`);
@@ -124,7 +124,7 @@ function App() {
         setMoreData(response.data.data.description)
         setProfile({
           ...profile,
-          video_img:response.data.data.blog_image[0].details,
+          video_img: response.data.data.blog_image[0].details,
           name: response.data.data.user.name,
           img: response.data.data.user.image ? response.data.data.user.image_path + '/' + response.data.data.user.image : null,
           time: response.data.data.create_date,
@@ -132,7 +132,7 @@ function App() {
           share: response.data.data.id,
         })
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
-        document.querySelector('meta[property="og:description"]').setAttribute("content", response.data.data.blog_image[0].details);
+        document.querySelector('meta[property="og:description"]').setAttribute("content", typeof response.data.data.description === 'string' ? response.data.data.description.replace(/(<([^>]+)>)/gi, '') : '');
         document.querySelector('meta[property="og:image"]').setAttribute("content", `https://img.youtube.com/vi/${response.data.data.blog_image[0].details}/0.jpg`);
         document.querySelector('meta[property="og:url"]').setAttribute("content", `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${list?.id}`);
         document.title = title;
