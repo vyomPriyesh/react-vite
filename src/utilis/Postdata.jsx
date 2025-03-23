@@ -99,7 +99,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
-                                        data-image={imageUrl}
+                                        data-image={'https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg'}
                                         data-url={whatsappUrl}
                                         onClick={updateOGTags}
                                         id="whatsapp-share"
