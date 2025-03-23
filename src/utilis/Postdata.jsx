@@ -41,13 +41,13 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     return (
         <>
-            {/* <Helmet>
-                <meta property="og:title" content={title} />
+            <Helmet>
+                <meta property="og:title" content={'title'} />
                 <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} />
                 <meta property="og:image" content={`https://img.youtube.com/vi/${profile?.video_img}/0.jpg`} />
                 <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
-                <title>{title}</title>
-            </Helmet> */}
+                <title>{'title'}</title>
+            </Helmet>
             {title &&
                 <h1 className="gap-2 text-base place-items-start mt-2 px-1 font-semibold">
                     {title}
