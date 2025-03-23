@@ -131,11 +131,12 @@ function App() {
           view: response.data.data.count,
           share: response.data.data.id,
         })
-        document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+        document.querySelector('meta[property="og:title"]').setAttribute("content", response.data.data.title);
+        document.querySelector('meta[property="og:site_name"]').setAttribute("content", 'Info Gujarat');
         document.querySelector('meta[property="og:description"]').setAttribute("content", typeof response.data.data.description === 'string' ? response.data.data.description.replace(/(<([^>]+)>)/gi, '') : '');
         document.querySelector('meta[property="og:image"]').setAttribute("content", `https://img.youtube.com/vi/${response.data.data.blog_image[0].details}/0.jpg`);
         document.querySelector('meta[property="og:url"]').setAttribute("content", `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${list?.id}`);
-        document.title = title;
+        document.title = response.data.data.title;
       }
     } catch (err) {
       console.log(err)
