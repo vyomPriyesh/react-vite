@@ -15,7 +15,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     const updateOGTags = () => {
         const description = typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''; // Strip HTML tags
-
+        
         // Update Open Graph meta tags
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
         document.querySelector('meta[property="og:description"]').setAttribute("content", description);
@@ -80,7 +80,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                 <div
                                     className="absolute flex rounded-md z-40 flex-row gap-3 text-2xl left-0 -translate-x-[100%] top-7 bg-white border border-gray-300 p-2">
                                     <a
-                                        // target='_blank'
+                                        target='_blank'
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
