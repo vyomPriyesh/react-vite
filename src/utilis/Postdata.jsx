@@ -22,7 +22,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
         // Update Open Graph meta tags
         document.querySelector('meta[property="og:title"]').setAttribute("content", title);
-        // document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+        document.querySelector('meta[property="og:description"]').setAttribute("content", description);
         document.querySelector('meta[property="og:image"]').setAttribute("content", `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`);
         document.querySelector('meta[property="og:url"]').setAttribute("content", `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`);
         document.title = title;
@@ -34,20 +34,20 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
 
     const shareUrl = `${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareUrl)}`;
-    const imageUrl = `https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg`;
+    const imageUrl = `https://img.youtube.com/vi/${profile?.video_img}/0.jpg`;
 
 
 
 
     return (
         <>
-            <Helmet>
+            {/* <Helmet>
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={typeof moreData === 'string' ? moreData.replace(/(<([^>]+)>)/gi, '') : ''} />
-                <meta property="og:image" content={`https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg`} />
+                <meta property="og:image" content={`https://img.youtube.com/vi/${profile?.video_img}/0.jpg`} />
                 <meta property="og:url" content={`${protocol}//${host}${port ? `:${port}` : ''}/?nid=${profile?.share}`} />
                 <title>{title}</title>
-            </Helmet>
+            </Helmet> */}
             {title &&
                 <h1 className="gap-2 text-base place-items-start mt-2 px-1 font-semibold">
                     {title}
@@ -99,7 +99,7 @@ const Postdata = ({ title, moreData, profile, heroData }) => {
                                         href={whatsappUrl}
                                         data-title={title}
                                         data-description={moreData}
-                                        data-image={'https://img.youtube.com/vi/nC8cu5bCgHg/sddefault.jpg'}
+                                        data-image={imageUrl}
                                         data-url={whatsappUrl}
                                         onClick={updateOGTags}
                                         id="whatsapp-share"
