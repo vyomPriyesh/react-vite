@@ -15,7 +15,7 @@ const Menu = ({ menu, first, setActive }) => {
           ))}
         </div>
         :
-        <div className='flex flex-row gap-1 overflow-y-auto text-nowrap heading pt-1 ps-1'>
+        <div className='flex flex-row gap-1 overflow-y-auto text-nowrap heading pt-1.5 ps-1'>
           {menu.map((list, i) => (
             <Link key={i} to={`${list.to}`} className='text-red-500 px-3 border-red-500 border-2 rounded-md font-medium text-sm md:text-base'>{list.name}</Link>
           ))}

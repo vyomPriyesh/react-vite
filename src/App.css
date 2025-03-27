@@ -114,3 +114,21 @@
   background: rgb(83, 83, 83, 0.9);
 
 }
+
+.location{
+  animation: location infinite 3s ease-in;
+}
+
+@keyframes location {
+  0% {
+    transform: translateX(-100px);
+  }
+
+  50%{
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(00px);
+  }
+}

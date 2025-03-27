@@ -39,6 +39,8 @@ function App() {
     share: '',
   })
 
+  const [type, setType] = useState(null)
+  const [location, setLocation] = useState(null)
   const [heroData, setHerodata] = useState()
   const [menu, setMenu] = useState([])
   const [menu2, setMenu2] = useState([])
@@ -59,10 +61,11 @@ function App() {
         try {
           const response = await axios.get(`${apiUrl}common/1`);
           if (response.data.status) {
-            setProfile({
-              ...profile,
-              logo: response.data.data.Setting.news_logo ? response.data.data.Setting.news_logo_path : '',
-            })
+            // setProfile({
+            //   ...profile,
+            //   logo: response.data.data.Setting.news_logo ? response.data.data.Setting.news_logo_path : '',
+            // })
+            setLocation(response.data.data.location ?? null)
             setMenu(response.data.data.Category.map(list => ({
               to: list.id,
               name: list.name
@@ -76,10 +79,12 @@ function App() {
             setNews(allNews)
             setBannerimg(response.data.data.BannerAds.map(list => list.image ? list.image_path : ''))
             setNewsData(response.data.data.BottomNews.map(list => list.name))
+            // setBannerText(response.data.data.blog_ticker.map(list => list.details) || [])
             setDelay(response.data.data.Setting.bottom_news_cycle)
             setBannerdelay(response.data.data.Setting.banner_ads_cycle)
             setProfile({
               ...profile,
+              logo: response.data.data.Setting.news_logo ? response.data.data.Setting.news_logo_path : '',
               name: response.data.data.user?.name,
               img: response.data.data.user?.image ? response.data.data.user.image_path + '/' + response.data.data.user.image : null,
               time: response.data.data.create_date,
@@ -100,6 +105,9 @@ function App() {
   const port = window.location.port;
 
   const changeVideo = async (list) => {
+    // console.log(list)
+    setType(null)
+    setLocation(null)
     setHerodata(null)
     setShareimg(null)
     setBannerText([])
@@ -117,6 +125,8 @@ function App() {
     try {
       const response = await axios.get(`${apiUrl}news_details/1/${list?.id}`);
       if (response.data.status) {
+        setType(response.data.data.type)
+        setLocation(response.data.data.location || null)
         setHerodata(response.data.data.blog_image[0].details)
         setShareimg(response.data.data.blog_image[0].details)
         setBannerText(response.data.data.blog_ticker.map(list => list.details))
@@ -145,6 +155,8 @@ function App() {
 
 
   const data = {
+    type,
+    location,
     title,
     moreData,
     shareImg,
@@ -179,7 +191,7 @@ function App() {
       <Menu menu={menu2} />
       <Postdata {...data} />
       <Routes>
-        <Route path='/' element={<Landingpage {...data} />} />
+        <Route path='/' element={<Landingpage {...data} />} /> 
       </Routes>
     </>
   )

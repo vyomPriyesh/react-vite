@@ -7,7 +7,7 @@ import Postimgslider from '../utilis/Postimgslider';
 import Multipost from '../utilis/Multipost';
 import axios from 'axios';
 
-const Landingpage = ({ active ,changeVideo}) => {
+const Landingpage = ({ active, changeVideo }) => {
 
     const [title, setTitle] = useState('મહાત્માં ગાંઘીજીની જીવનગાથા | રાષ્ટ્રપિતા ગાંધીબાપુ જીવનકથા ગુજરાતી')
 
@@ -114,13 +114,16 @@ const Landingpage = ({ active ,changeVideo}) => {
         allMenu()
     }, [active])
 
+
+    console.log(all.filter(list => list.author != null))
+
     return (
         <>
             <div className="mb-20 space-y-2">
                 {all.map((list, i) => (
                     <>
                         {list.type == 1 &&
-                            <Imagetovideo key={i} {...data} list={list} bannerText={list?.blog_ticker[0]}/>
+                            <Imagetovideo key={i} {...data} list={list} bannerText={list?.blog_ticker[0]} />
                         }
                         {list.type == 2 &&
                             <Postimgslider key={i} list={list} />

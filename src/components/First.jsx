@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -12,11 +12,14 @@ import { FaEye, FaInstagram, FaStopwatch, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { RiFacebookFill } from 'react-icons/ri';
 import Postdata from '../utilis/Postdata';
+import { GoMute, GoUnmute } from 'react-icons/go';
 
-const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, newsData, delay, bannerDelay, bannerText }) => {
+const First = ({ type, location, title, moreData, profile, heroData, scrollNews, bannerImg, newsData, delay, bannerDelay, bannerText }) => {
 
+    // console.log(object)
 
     const [show, setShow] = useState(false)
+    const [mute, setMute] = useState(false)
     const [data, setData] = useState('')
     const [refresh, setRefresh] = useState(0)
     const [refresh2, setRefresh2] = useState(0)
@@ -35,10 +38,9 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
         const delays = [1000, 8000, 12000]; // Delays for each text update
         const totalTexts = bannerText.length;
 
-        bannerText.forEach((text, index) => {
+        bannerText.forEach((textt, index) => {
             setTimeout(() => {
-                setText(text);
-
+                setText(textt);
                 if (index === totalTexts - 1) {
                     setTimeout(() => {
                         setRefresh((prev) => prev + 1);
@@ -48,56 +50,42 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
         });
     };
 
-    const newsDatachange = () => {
-        let initialDelay = 1500;
-        let showDuration = 3500;
-        let hideDuration = 1500;
+    const newsDatachange = async () => {
 
-        newsData.forEach((newsItem, index) => {
-            setTimeout(() => {
-                setNews(true);
-                setSinglenews(newsItem);
-            }, initialDelay + index * (showDuration + hideDuration));
+        let i = 0;
+        while (true) {
+            await delay2(2000);
+            setNews(true);
+            setSinglenews(newsData[i]);
+            await delay2(4000);
+            setNews(false);
+            await delay2(2000);
+            i = (i + 1) % newsData.length;
+            if (i === 0) {
+                setShownews(false);
+                await delay2(delay * 1000);
+            }
+        }
 
-            setTimeout(() => {
-                setNews(false);
-            }, initialDelay + showDuration + index * (showDuration + hideDuration));
-        });
+        // let initialDelay = 1500;
+        // let showDuration = 3500;
+        // let hideDuration = 1500;
 
-        setTimeout(() => {
-            setShownews(false)
-        }, initialDelay + newsData.length * (showDuration + 1000));
+        // newsData.forEach((newsItem, index) => {
+        //     setTimeout(() => {
+        //         setNews(true);
+        //         setSinglenews(newsItem);
+        //     }, initialDelay + index * (showDuration + hideDuration));
+
+        //     setTimeout(() => {
+        //         setNews(false);
+        //     }, initialDelay + showDuration + index * (showDuration + hideDuration));
+        // });
+
+        // setTimeout(() => {
+        //     setShownews(false)
+        // }, initialDelay + newsData.length * (showDuration + 1000));
     };
-
-    const bannerDatachange = () => {
-        let initialDelay_2 = 1000; // 1 second before the first setImg and setBanner
-        let showDuration_2 = 3000; // Show the item for 3 seconds
-        let hideDuration_2 = 100;  // Duration to hide the item (optional, could be 0)
-
-        let totalItems = bannerImg.length; // Get the total number of banner items
-        let itemsShown = 0; // Counter to track how many items have been shown
-
-        bannerImg.forEach((newsItem, index) => {
-            // Set the first delay and show the image after 1 second
-            setTimeout(() => {
-                setImg(true);             // Show the image
-                setBanner(newsItem);      // Set the new banner
-            }, initialDelay_2 + index * (showDuration_2 + hideDuration_2));
-
-            // Hide the image after 4 seconds (1s + 3s)
-            setTimeout(() => {
-                setImg(false);            // Hide the image
-                itemsShown++;             // Increment the counter after hiding each item
-
-                // When all items have been shown, hide the entire banner
-                if (itemsShown === totalItems) {
-                    setShowbanner(false); // Hide the banner
-                }
-            }, initialDelay_2 + showDuration_2 + index * (showDuration_2 + hideDuration_2));
-        });
-    };
-
-
 
 
     useEffect(() => {
@@ -109,14 +97,25 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
         }
     }, [showNews, delay])
 
-    useEffect(() => {
-        if (!showBanner) {
-            setTimeout(() => {
-                setShowbanner(true)
-                bannerDatachange();
-            }, bannerDelay * 1000);
+
+    const delay2 = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    const loopWithDelay = async () => {
+        let i = 0;
+        while (true) {
+            setBanner(bannerImg[i]);
+            await delay2(4000);
+            i = (i + 1) % bannerImg.length;
+            if (i === 0) {
+                await delay2(bannerDelay * 1000);
+            }
         }
-    }, [showBanner, bannerDelay])
+    };
+
+
+    useEffect(() => {
+        loopWithDelay();
+    }, [bannerImg]);
 
 
     useEffect(() => {
@@ -126,14 +125,8 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
     }, [refresh2, newsData]);
 
     useEffect(() => {
-        if (!img && bannerImg.length > 0) {
-            bannerDatachange();
-        }
-    }, [refresh4, bannerImg]);
-
-    useEffect(() => {
         bannerData();
-    }, [refresh]);
+    }, [refresh, bannerText]);
 
     const dateFormate = (startDate) => {
         const start = new Date(startDate);
@@ -205,6 +198,63 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
 
     }, [refresh3]);
 
+
+    const [isMuted, setIsMuted] = useState(true);
+    const playerRef = useRef(null);
+
+    // This function is called when the YouTube API is ready
+    const onYouTubeIframeAPIReady = () => {
+        playerRef.current = new window.YT.Player('youtube-player', {
+            videoId: heroData,
+            playerVars: {
+                autoplay: 1,
+                mute: 1,
+                controls: 0,
+                modestbranding: 1,
+                rel: 0
+            },
+            events: {
+                onReady: onPlayerReady
+            }
+        });
+    };
+
+    const onPlayerReady = (event) => {
+        // Player is ready
+    };
+
+    useEffect(() => {
+        // Load the YouTube API script if not already loaded
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+
+        return () => {
+            // Clean up
+            if (playerRef.current) {
+                playerRef.current.destroy();
+            }
+        };
+    }, [heroData]);
+
+    const toggleMute = () => {
+        if (playerRef.current) {
+            if (isMuted) {
+                playerRef.current.unMute();
+            } else {
+                playerRef.current.mute();
+            }
+            setIsMuted(!isMuted);
+        }
+    };
+
     return (
         <>
             {/* <div className="sticky top-0"> */}
@@ -213,54 +263,54 @@ const First = ({ title, moreData, profile, heroData, scrollNews, bannerImg, news
                     <img className='md:h-16 md:w-16 h-10 w-10 absolute aspect-square right-2 top-2 logo' src={profile?.logo} />
                 }
                 <div className='flex justify-center place-items-center mt-1'>
-                    <iframe width="100%" height="240" src={`https://www.youtube.com/embed/${heroData}?enablejsapi=1&rel=0&amp;autoplay=1&mute=1&controls=0&modestbranding=1`} className=" not-allowed"
-                        allow="autoplay;  encrypted-media; "
-                        allowFullScreen ></iframe>
+                    {/* <iframe width="100%" height="240" src={`https://www.youtube.com/embed/${heroData}?enablejsapi=1&rel=0&amp;autoplay=1&mute=${mute ? '1':'0'}&controls=0&modestbranding=1`} className=" not-allowed"
+                        allow="autoplay;  encrypted-media;"
+                        allowFullScreen ></iframe> */}
+                    <div id="youtube-player" className={`w-full ${type == 1 ? 'h-[240px]' : type == 2 ? 'h-[620px]' : 'h-[240px]'}`}></div>
                 </div>
-                {/* <Location data={'surat'} /> */}
+                <button className="absolute bg-white aspect-square left-0 bottom-2 text-2xl p-1" onClick={toggleMute}>{isMuted ? <GoMute /> : <GoUnmute />}</button>
+                <Location data={location} />
                 <Redbanner data={text} />
             </div>
-            <div className='bg-[#002793] relative h-6'>
+            <div className='bg-[#002793] relative h-5'>
                 <div>
-                    <marquee className="marq text-white" direction="left" loop="">
+                    <marquee className="marq text-white" direction="left" loop="" scrollAmount={4}>
                         <p className="space-x-4 flex flex-row">
                             {scrollNews?.map((list, index) => (
                                 <>
-                                    <span className='place-items-center flex flex-row gap-2' key={index}><img src={profile?.logo} alt="" className='h-4 w-4' />{list + '\u00A0'}</span>
+                                    <span className='place-items-center font-bold flex text-sm flex-row gap-2' key={index}><img src={profile?.logo} alt="" className='h-4 w-4' />{list + '\u00A0'}</span>
                                 </>
                             ))}
                         </p>
                     </marquee>
                 </div>
-                <span className={`${show ? 'translate-x-0 ' : '-translate-x-full `'} uppercase transition-all duration-1000 ease-in-out bg-white px-2 absolute top-0`}>{data}</span>
+                <span className={`${show ? 'translate-x-0 ' : '-translate-x-full `'} uppercase transition-all duration-1000 ease-in-out bg-white px-1 absolute top-0`}>{data}</span>
             </div>
-            <div className="bg-white pt-0.5 h-12 relative">
-                <div className={`bg overflow-y-auto heading absolute z-30 w-full`}>
-                    {showNews &&
+            <div className="bg-white pt-[2px] h-12 relative">
+                {showNews &&
+                    <div className={`bg overflow-y-auto heading absolute h-full z-30 w-full`}>
                         <>
                             {news ?
-                                <div key={news} data-aos="fade-left" className="text-white text-center  flex justify-center place-items-center" >
+                                <div key={singleNews} data-aos="fade-left" className="text-white text-center  h-full flex justify-center place-items-center" >
                                     <h1 className="text-lg py-0.5 h-11 flex justify-center place-items-center font-semibold">
                                         {singleNews}
                                     </h1>
                                 </div>
                                 :
-                                <div key={news} className="flex flex-row" data-aos="fade-left">
-                                    <div className="w-1/2 bg-yellow-400 flex justify-center place-items-center h-11 text-xl font-bold">
+                                <div key={news} className="flex flex-row h-full" data-aos="fade-left">
+                                    <div className="w-1/2 bg-yellow-400 flex justify-center place-items-center h-full text-xl font-bold">
                                         <h1 className="">Breaking</h1>
                                     </div>
-                                    <div className="w-1/2 bg h-11 py-1 flex justify-center place-items-center text-white text-xl font-bold">
+                                    <div className="w-1/2 bg h-full py-1 flex justify-center place-items-center text-white text-xl font-bold">
                                         <h1 className="">News</h1>
                                     </div>
                                 </div>
                             }
                         </>
-                    }
-                </div>
-                <div className="absolute z-20 overflow-y-auto heading">
-                    {showBanner &&
-                        <img src={banner} data-aos="fade-left" key={img} alt="" />
-                    }
+                    </div>
+                }
+                <div className="absolute z-20 overflow-y-auto h-full heading">
+                    <img src={banner} data-aos="fade-left" className='h-full w-full' key={banner} alt="" />
                 </div>
             </div>
             <div className="">

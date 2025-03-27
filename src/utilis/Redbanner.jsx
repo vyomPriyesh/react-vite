@@ -2,7 +2,6 @@ import React from 'react'
 
 const Redbanner = ({ data }) => {
 
-    // console.log(data)
 
     return (
         <>
